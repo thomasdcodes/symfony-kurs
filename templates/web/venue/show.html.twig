@@ -1,0 +1,14 @@
+{% extends 'web/base.html.twig' %}
+
+{% block title %}{{ venue.name }}{% endblock %}
+
+{% block body %}
+    <h1>Veranstaltungsort Details</h1>
+    <dl>
+        <dt>Id</dt>
+        <dd>{{ venue.id }}</dd>
+        <dt>Name der Veranstaltungsortes</dt>
+        <dd>{{ venue.name }}</dd>
+    </dl>
+{% endblock %}
+
