@@ -1,17 +1,18 @@
 {% extends 'web/base.html.twig' %}
 
 {% block body %}
-    <h1>Veranstaltungsorte</h1>
+    <div class="container">
+        <h1 class="text-primary">Veranstaltungsorte</h1>
 
-    <table class="table">
-        <thead>
+        <table class="table">
+            <thead>
             <tr>
                 <th>#</th>
                 <th>Name des Ortes</th>
                 <th></th>
             </tr>
-        </thead>
-        <tbody>
+            </thead>
+            <tbody>
             {% for venue in venues %}
                 <tr>
                     <td>{{ venue.id }}</td>
@@ -23,6 +24,7 @@
                     </td>
                 </tr>
             {% endfor %}
-        </tbody>
-    </table>
+            </tbody>
+        </table>
+    </div>
 {% endblock %}
