@@ -10,6 +10,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
 
 #[ORM\Entity(repositoryClass: AppointmentRepository::class)]
@@ -21,24 +22,29 @@ class Appointment
     #[ORM\Column(length: 100)]
     #[Assert\NotBlank]
     #[Assert\Length(min: 2, max: 100)]
+    #[Groups(['appointment'])]
     private ?string $title = null;
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     #[Assert\NotBlank]
+    #[Groups(['appointment'])]
     private ?\DateTimeInterface $startDateTime = null;
 
     #[ORM\Column(type: Types::TEXT, nullable: true)]
+    #[Groups(['appointment'])]
     private ?string $description = null;
 
     #[ORM\ManyToOne(inversedBy: 'appointments')]
     #[ORM\JoinColumn(nullable: false)]
     #[Assert\NotBlank]
+    #[Groups(['appointment'])]
     private ?Venue $venue = null;
 
     /**
      * @var Collection<int, User>
      */
     #[ORM\ManyToMany(targetEntity: User::class, inversedBy: 'appointments')]
+    #[Groups(['appointment'])]
     private Collection $users;
 
     public function __construct()

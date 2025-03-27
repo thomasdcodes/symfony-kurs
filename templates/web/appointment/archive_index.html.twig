@@ -1,0 +1,52 @@
+{% extends 'web/base.html.twig' %}
+
+{% block body %}
+    <div class="container mt-2">
+        <div class="row align-items-center">
+            <div class="col">
+                <a class="btn btn-sm btn-outline-success"
+                   href="{{ path('app_appointment_index') }}">Zurück zur Liste</a>
+            </div>
+            <div class="col">
+                <h1 class="h2">Archivierte Veranstaltungen</h1>
+            </div>
+            <div class="col text-end">
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Ort</th>
+                        <th>Wachbeginn</th>
+                        <th>Wachhabende</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.title }}</td>
+                            <td>{{ appointment.venue.name }}</td>
+                            <td>{{ appointment.startDateTime ? appointment.startDateTime|to_german_datetime : '' }}</td>
+                            <td>
+                                {% for user in appointment.users %}
+                                    {{ user.preName }} {{ user.familyName }}<br/>
+                                {% endfor %}
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

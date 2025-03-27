@@ -5,7 +5,10 @@
 {% block body %}
     <div class="container mt-2">
         <div class="row align-items-center">
-            <div class="col"></div>
+            <div class="col">
+                <a class="btn btn-sm btn-outline-success"
+                    href="{{ path('app_appointment_archive_index') }}">Zeige Archivierte</a>
+            </div>
             <div class="col">
                 <h1 class="h2">{{ 'index.headline'|trans }}</h1>
             </div>

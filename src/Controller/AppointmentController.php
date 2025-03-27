@@ -29,6 +29,14 @@ final class AppointmentController extends AbstractController
         ]);
     }
 
+    #[Route(path: '/archive', name: 'app_appointment_archive_index', methods: ['GET'])]
+    public function archiveIndex(AppointmentRepository $appointmentRepository): Response
+    {
+        return $this->render('web/appointment/archive_index.html.twig', [
+            'appointments' => $appointmentRepository->findArchived(),
+        ]);
+    }
+
     #[Route('/new', name: 'app_appointment_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
@@ -79,7 +87,7 @@ final class AppointmentController extends AbstractController
     #[Route('/{id}', name: 'app_appointment_delete', methods: ['POST'])]
     public function delete(Request $request, Appointment $appointment, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$appointment->getId(), $request->getPayload()->getString('_token'))) {
+        if ($this->isCsrfTokenValid('delete' . $appointment->getId(), $request->getPayload()->getString('_token'))) {
             $entityManager->remove($appointment);
             $entityManager->flush();
         }
