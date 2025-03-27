@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Attribute\Route;
 
 class DashboardController extends AbstractController
 {
-    #[Route(path: '/', name: 'app_dashboard_index', methods: ['GET'])]
+    #[Route(path: '/dashboard', name: 'app_dashboard_index', methods: ['GET'])]
     public function index(): Response
     {
         return $this->render('web/dashboard/index.html.twig');

@@ -9,6 +9,8 @@
             <tr>
                 <th>#</th>
                 <th>Name des Ortes</th>
+                <th>Anzahl Wachhabende</th>
+                <th>Anzahl Posten</th>
                 <th></th>
             </tr>
             </thead>
@@ -17,6 +19,8 @@
                 <tr>
                     <td>{{ venue.id }}</td>
                     <td>{{ venue.name }}</td>
+                    <td>{{ venue.numOfAdvancedGuards }}</td>
+                    <td>{{ venue.numOfGuards }}</td>
                     <td>
                         <a href="{{ path('app_venue_show', {id: venue.id}) }}">Details</a>
                         <a href="{{ path('app_venue_edit', {id: venue.id}) }}">Editieren</a>

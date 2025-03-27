@@ -2,6 +2,8 @@
 
 {% trans_default_domain 'appointment' %}
 
+{% block keywords %}{{ 'appointment.list.keywords'|trans([], 'seo') }}{% endblock %}
+
 {% block body %}
     <div class="container mt-2">
         <div class="row align-items-center">

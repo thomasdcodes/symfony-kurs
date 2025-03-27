@@ -7,6 +7,7 @@ namespace App\Entity;
 use App\Repository\VenueRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Serializer\Attribute\Groups;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -27,6 +28,14 @@ class Venue
      */
     #[ORM\OneToMany(targetEntity: Appointment::class, mappedBy: 'venue', orphanRemoval: true)]
     private Collection $appointments;
+
+    #[ORM\Column(type: Types::SMALLINT)]
+    #[Assert\GreaterThanOrEqual(0)]
+    private ?int $numOfAdvancedGuards = null;
+
+    #[ORM\Column(type: Types::SMALLINT)]
+    #[Assert\GreaterThanOrEqual(0)]
+    private ?int $numOfGuards = null;
 
     public function __construct()
     {
@@ -70,6 +79,30 @@ class Venue
                 $appointment->setVenue(null);
             }
         }
+
+        return $this;
+    }
+
+    public function getNumOfAdvancedGuards(): int
+    {
+        return $this->numOfAdvancedGuards;
+    }
+
+    public function setNumOfAdvancedGuards(int $numOfAdvancedGuards): static
+    {
+        $this->numOfAdvancedGuards = $numOfAdvancedGuards;
+
+        return $this;
+    }
+
+    public function getNumOfGuards(): int
+    {
+        return $this->numOfGuards;
+    }
+
+    public function setNumOfGuards(int $numOfGuards): static
+    {
+        $this->numOfGuards = $numOfGuards;
 
         return $this;
     }
