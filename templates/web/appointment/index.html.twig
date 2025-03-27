@@ -1,0 +1,52 @@
+{% extends 'web/base.html.twig' %}
+
+{% trans_default_domain 'appointment' %}
+
+{% block body %}
+    <div class="container mt-2">
+        <div class="row align-items-center">
+            <div class="col"></div>
+            <div class="col">
+                <h1 class="h2">{{ 'index.headline'|trans }}</h1>
+            </div>
+            <div class="col text-end">
+                <a class="btn btn-sm btn-outline-success"
+                   href="{{ path('app_appointment_new') }}">{{ 'index.addNew'|trans }}</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Title</th>
+                        <th>Ort</th>
+                        <th>Wachbeginn</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for appointment in appointments %}
+                        <tr>
+                            <td>{{ appointment.title }}</td>
+                            <td>{{ appointment.venue.name }}</td>
+                            <td>{{ appointment.startDateTime ? appointment.startDateTime|to_german_datetime : '' }}</td>
+                            <td class="text-end">
+                                <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">Details</a>
+                                <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Bearbeiten</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="4">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+{% endblock %}

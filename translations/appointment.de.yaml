@@ -1,0 +1,12 @@
+index:
+  headline: 'Veranstaltungsübersicht'
+  addNew: 'Veranstaltung hinzufügen'
+
+form:
+  user:
+    label: Wachhabende
+    help: Teilen Sie hier die Wachhabenden für diese Veranstaltung ein
+
+flash:
+  new:
+    success: 'Veranstaltung erfolgreich hinzugefügt'

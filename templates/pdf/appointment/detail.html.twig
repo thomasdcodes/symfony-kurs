@@ -1,0 +1,36 @@
+{% extends 'pdf/base.html.twig' %}
+
+{% block body %}
+    <table>
+        <tbody>
+        <tr>
+            <th>Id</th>
+            <td>{{ appointment.id }}</td>
+        </tr>
+        <tr>
+            <th>Title</th>
+            <td>{{ appointment.title }}</td>
+        </tr>
+        <tr>
+            <th>Wachbeginn</th>
+            <td>{{ appointment.startDateTime ? appointment.startDateTime|to_german_datetime : '' }}</td>
+        </tr>
+        <tr>
+            <th>Beschreibung</th>
+            <td>{{ appointment.description }}</td>
+        </tr>
+        <tr>
+            <th>Veranstaltungsort</th>
+            <td>{{ appointment.venue.name }}</td>
+        </tr>
+        <tr>
+            <th>Wachhabende</th>
+            <td>
+                {% for user in appointment.users %}
+                    {{ user.preName }} {{ user.familyName }}<br/>
+                {% endfor %}
+            </td>
+        </tr>
+        </tbody>
+    </table>
+{% endblock %}
