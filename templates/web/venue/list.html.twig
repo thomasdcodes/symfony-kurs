@@ -2,33 +2,51 @@
 
 {% block body %}
     <div class="container">
-        <h1 class="text-primary">Veranstaltungsorte</h1>
+        <div class="container mt-2">
+            <div class="row align-items-center">
+                <div class="col">
+                </div>
+                <div class="col">
+                    <h1 class="h2">Veranstaltungsorte</h1>
+                </div>
+                <div class="col text-end">
+                    <a class="btn btn-sm btn-outline-success"
+                       href="{{ path('app_venue_add') }}">Veranstaltungsort hinzufügen</a>
+                </div>
+            </div>
+        </div>
 
-        <table class="table">
-            <thead>
-            <tr>
-                <th>#</th>
-                <th>Name des Ortes</th>
-                <th>Anzahl Wachhabende</th>
-                <th>Anzahl Posten</th>
-                <th></th>
-            </tr>
-            </thead>
-            <tbody>
-            {% for venue in venues %}
-                <tr>
-                    <td>{{ venue.id }}</td>
-                    <td>{{ venue.name }}</td>
-                    <td>{{ venue.numOfAdvancedGuards }}</td>
-                    <td>{{ venue.numOfGuards }}</td>
-                    <td>
-                        <a href="{{ path('app_venue_show', {id: venue.id}) }}">Details</a>
-                        <a href="{{ path('app_venue_edit', {id: venue.id}) }}">Editieren</a>
-                        <a href="{{ path('app_venue_delete', {id: venue.id}) }}">Löschen</a>
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col">
+                    <table class="table">
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name des Ortes</th>
+                            <th>Anzahl Wachhabende</th>
+                            <th>Anzahl Posten</th>
+                            <th></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for venue in venues %}
+                            <tr>
+                                <td>{{ venue.id }}</td>
+                                <td>{{ venue.name }}</td>
+                                <td>{{ venue.numOfAdvancedGuards }}</td>
+                                <td>{{ venue.numOfGuards }}</td>
+                                <td>
+                                    <a href="{{ path('app_venue_show', {id: venue.id}) }}">Details</a>
+                                    <a href="{{ path('app_venue_edit', {id: venue.id}) }}">Editieren</a>
+                                    <a href="{{ path('app_venue_delete', {id: venue.id}) }}">Löschen</a>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
 {% endblock %}

@@ -1,25 +1,16 @@
 {% extends 'web/base.html.twig' %}
+{% import 'web/includes/macro/_head.html.twig' as headMacro %}
 
 {% trans_default_domain 'appointment' %}
 
 {% block keywords %}{{ 'appointment.list.keywords'|trans([], 'seo') }}{% endblock %}
 
 {% block body %}
-    <div class="container mt-2">
-        <div class="row align-items-center">
-            <div class="col">
-                <a class="btn btn-sm btn-outline-success"
-                    href="{{ path('app_appointment_archive_index') }}">Zeige Archivierte</a>
-            </div>
-            <div class="col">
-                <h1 class="h2">{{ 'index.headline'|trans }}</h1>
-            </div>
-            <div class="col text-end">
-                <a class="btn btn-sm btn-outline-success"
-                   href="{{ path('app_appointment_new') }}">{{ 'index.addNew'|trans }}</a>
-            </div>
-        </div>
-    </div>
+    {{ headMacro.headblock(
+        'index.headline'|trans,
+        '<a class="btn btn-sm btn-outline-success" href="' ~ path('app_appointment_archive_index') ~ '">Zeige Archivierte</a>',
+        '<a class="btn btn-sm btn-outline-success" href="' ~ path('app_appointment_new') ~ '">' ~ "index.addNew"|trans ~ '</a>'
+    ) }}
 
     <div class="container mt-5">
         <div class="row">
@@ -30,6 +21,7 @@
                         <th>Title</th>
                         <th>Ort</th>
                         <th>Wachbeginn</th>
+                        <th>Wachhabende</th>
                         <th></th>
                     </tr>
                     </thead>
@@ -39,6 +31,11 @@
                             <td>{{ appointment.title }}</td>
                             <td>{{ appointment.venue.name }}</td>
                             <td>{{ appointment.startDateTime ? appointment.startDateTime|to_german_datetime : '' }}</td>
+                            <td>
+                                {% for user in appointment.users %}
+                                    {{ user.preName }} {{ user.familyName }}<br/>
+                                {% endfor %}
+                            </td>
                             <td class="text-end">
                                 <a href="{{ path('app_appointment_show', {'id': appointment.id}) }}">Details</a>
                                 <a href="{{ path('app_appointment_edit', {'id': appointment.id}) }}">Bearbeiten</a>
@@ -46,7 +43,7 @@
                         </tr>
                     {% else %}
                         <tr>
-                            <td colspan="4">no records found</td>
+                            <td colspan="5">no records found</td>
                         </tr>
                     {% endfor %}
                     </tbody>

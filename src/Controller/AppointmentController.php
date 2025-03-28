@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Appointment;
+use App\Event\AppointmentCreatedEvent;
 use App\Form\AppointmentType;
 use App\Repository\AppointmentRepository;
 use App\Security\Voter\AppointmentVoter;
@@ -12,6 +13,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Attribute\IsGranted;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 #[Route('/appointment')]
@@ -40,7 +42,11 @@ final class AppointmentController extends AbstractController
     }
 
     #[Route('/new', name: 'app_appointment_new', methods: ['GET', 'POST'])]
-    public function new(Request $request, EntityManagerInterface $entityManager): Response
+    public function new(
+        Request $request,
+        EntityManagerInterface $entityManager,
+        EventDispatcherInterface $eventDispatcher,
+    ): Response
     {
         $appointment = new Appointment();
         $form = $this->createForm(AppointmentType::class, $appointment);
@@ -49,6 +55,8 @@ final class AppointmentController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $entityManager->persist($appointment);
             $entityManager->flush();
+
+            $eventDispatcher->dispatch(new AppointmentCreatedEvent($appointment));
 
             $this->addFlash('success', $this->translator->trans(id: 'flash.new.success', domain: 'appointment'));
             return $this->redirectToRoute('app_appointment_index', [], Response::HTTP_SEE_OTHER);

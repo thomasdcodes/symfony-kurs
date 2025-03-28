@@ -1,0 +1,11 @@
+{% macro headblock(headline, leftSide = "", rightSide = "") %}
+    <div class="container mt-2">
+        <div class="row align-items-center">
+            <div class="col">{{ leftSide|raw }}</div>
+            <div class="col">
+                <h1 class="h2">{{ headline }}</h1>
+            </div>
+            <div class="col text-end">{{ rightSide|raw }}</div>
+        </div>
+    </div>
+{% endmacro %}

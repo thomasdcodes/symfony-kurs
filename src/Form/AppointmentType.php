@@ -28,7 +28,9 @@ class AppointmentType extends AbstractType
             ])
             ->add('users', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'preName',
+                'choice_label' => function (User $user) {
+                    return sprintf('%s %s', $user->getPreName(), $user->getFamilyName());
+                },
                 'expanded' => true,
                 'multiple' => true,
                 'label' => 'form.user.label',

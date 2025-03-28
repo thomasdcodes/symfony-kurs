@@ -1,37 +1,46 @@
 {% extends 'web/base.html.twig' %}
+{% import 'web/includes/macro/_head.html.twig' as headMacro %}
 
 {% block body %}
-    <h1>User index</h1>
+    {{ headMacro.headblock(
+        'Benutzerübersicht',
+        '',
+        '<a class="btn btn-sm btn-outline-success" href="' ~ path('app_user_new') ~ '">Benutzer anlegen</a>'
+    ) }}
 
-    <a href="{{ path('app_user_new') }}">Create new</a>
-
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Email</th>
-                <th>PreName</th>
-                <th>FamilyName</th>
-                <th>Roles</th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for user in users %}
-            <tr>
-                <td>{{ user.email }}</td>
-                <td>{{ user.preName }}</td>
-                <td>{{ user.familyName }}</td>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-                <td>
-                    <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
-                    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="7">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>PreName</th>
+                        <th>FamilyName</th>
+                        <th>Roles</th>
+                        <th></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in users %}
+                        <tr>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.preName }}</td>
+                            <td>{{ user.familyName }}</td>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                            <td class="text-end">
+                                <a href="{{ path('app_user_show', {'id': user.id}) }}">show</a>
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
+                            </td>
+                        </tr>
+                    {% else %}
+                        <tr>
+                            <td colspan="7">no records found</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
 {% endblock %}
